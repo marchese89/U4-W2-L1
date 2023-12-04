@@ -24,11 +24,26 @@ public class Main {
         Integer numero = null;
         Integer posizione = null;
         do {
-            posizione = r.nextInt(5);
-            System.out.println("Scegliere una posizione all'interno dell'array:");
-            posizione = Integer.parseInt(sc.nextLine());
+            boolean cont;
+            do {
+                System.out.println("Scegliere una posizione all'interno dell'array (1-5):");
+                try {
+                    posizione = Integer.parseInt(sc.nextLine()) - 1;
+                    cont = false;
+                } catch (NumberFormatException e) {
+                    cont = true;
+                }
+            }while (cont);
+
+
             System.out.println("Inserire il numero da mettere nella posizione specificata");
-            numero = Integer.parseInt(sc.nextLine());
+            try {
+                numero = Integer.parseInt(sc.nextLine());
+
+            }catch (NumberFormatException e){
+                log.error("input non valido, sono ammessi solo numeri");
+            }
+
             if(numero == 0){
                 continue;
             }
@@ -36,9 +51,10 @@ public class Main {
                 array[posizione] = numero;
             }catch (ArrayIndexOutOfBoundsException e){
                 log.error("Posizione nell'array non valida");
-                log.info("Valori accettati 0-4");
+                log.info("Valori accettati 1-5");
                 continue;
             }
+
 
             System.out.println("Stampo il nuovo array");
             printIntArray(array);
